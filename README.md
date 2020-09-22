@@ -1,7 +1,7 @@
-# Rust external speed/clip hack for ogat
+# Simple way to edit memory with rust
  
- Simple external hack, that reads and writes to the memory of the game OGAT.
+Simple base I use to get a handle to a process and write to its memory. It can also get what keys are being pressed.
 
- Written in rust. Now with ability to detect key input.
+Written all in rust.
 
  
