@@ -48,7 +48,7 @@ impl Process {
     }
 
     //Evaluates multi level pointer returns result
-    pub fn pointer_from_offsets(self, base_address: u32, offsets: Vec<u64>) -> u64 {
+    pub fn pointer_from_offsets(self, base_address: u64, offsets: Vec<u64>) -> u64 {
         let mut pointer: u64 = base_address as u64;
         for o in offsets.iter() {
             pointer += o;
@@ -64,7 +64,7 @@ impl Module {
 
         let h_module = unsafe {
             winapi::um::tlhelp32::CreateToolhelp32Snapshot(
-                winapi::um::tlhelp32::TH32CS_SNAPMODULE,
+                winapi::um::tlhelp32::TH32CS_SNAPMODULE | winapi::um::tlhelp32::TH32CS_SNAPMODULE32,,
                 dword_pid,
             )
         };
