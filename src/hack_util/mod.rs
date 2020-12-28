@@ -64,7 +64,7 @@ impl Module {
 
         let h_module = unsafe {
             winapi::um::tlhelp32::CreateToolhelp32Snapshot(
-                winapi::um::tlhelp32::TH32CS_SNAPMODULE | winapi::um::tlhelp32::TH32CS_SNAPMODULE32,,
+                winapi::um::tlhelp32::TH32CS_SNAPMODULE | winapi::um::tlhelp32::TH32CS_SNAPMODULE32,
                 dword_pid,
             )
         };

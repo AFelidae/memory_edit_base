@@ -5,7 +5,7 @@ fn main() {
     let module = hack_util::Module::get_module("SomeExecutable.exe", "SomeDllOrExe.dll");
 
     let some_base_ptr = process.pointer_from_offsets(
-        module.m_dw_base as u32,
+        module.m_dw_base as u64,
         vec![0xDEADBEEF, 0xF0, 0x0, 0xCC], //Evaluate multi level pointer
     );
 
