@@ -4,10 +4,9 @@ fn main() {
     let process = hack_util::attach("SomeExecutable.exe");
     let module = hack_util::Module::get_module("SomeExecutable.exe", "SomeDllOrExe.dll");
 
-    let some_base_ptr = process.pointer_from_offsets(
-        module.m_dw_base as u64,
-        vec![0xDEADBEEF, 0xF0, 0x0, 0xCC], //Evaluate multi level pointer
-    );
+    //Evaluate multi level pointer
+    let some_base_ptr =
+        process.pointer_from_offsets(vec![module.m_dw_base + 0xDEADBEEF, 0xF0, 0x0, 0xCC]);
 
     let offset_from_base_ptr = some_base_ptr + 0x8; //8 bytes ahead of first the multi level pointer
 

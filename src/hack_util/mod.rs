@@ -48,8 +48,8 @@ impl Process {
     }
 
     //Evaluates multi level pointer returns result
-    pub fn pointer_from_offsets(self, base_address: u64, offsets: Vec<u64>) -> u64 {
-        let mut pointer: u64 = base_address as u64;
+    pub fn pointer_from_offsets(self, offsets: Vec<u64>) -> u64 {
+        let mut pointer: u64 = 0;
         for o in offsets.iter() {
             pointer += o;
             pointer = Process::read_memory::<u32>(self, pointer) as u64;
