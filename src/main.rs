@@ -1,8 +1,12 @@
-mod hack_util;
+#[path = "hack_util/input.rs"]
+mod input;
+
+#[path = "hack_util/memory.rs"]
+mod memory;
 
 fn main() {
-    let process = hack_util::attach("SomeExecutable.exe");
-    let module = hack_util::Module::get_module("SomeExecutable.exe", "SomeDllOrExe.dll");
+    let process = memory::attach("SomeExecutable.exe");
+    let module = memory::Module::get_module("SomeExecutable.exe", "SomeDllOrExe.dll");
 
     //Evaluate multi level pointer
     let some_base_ptr =
@@ -15,7 +19,7 @@ fn main() {
 
     //Is A key pressed?
     //https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
-    if hack_util::pressed(0x41) {
+    if input::pressed(0x41) {
         process.write_memory::<f32>(offset_from_base_ptr, 123.0) //Writes 123.0 as float to memory location,
     }
 }
