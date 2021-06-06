@@ -4,9 +4,9 @@ Simple base I use to get a handle to a process and write to its memory. It can a
 
 Written all in rust.
 
-#### Example
+### Example
 
-Example of main.rs thats read and writes to some pointers in memory
+main.rs thats read and writes to some pointers in memory of SomeDllOrExe
 
 ```Rust
 #[path = "mem_util/input.rs"]
