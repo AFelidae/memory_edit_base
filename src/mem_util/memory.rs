@@ -47,12 +47,22 @@ impl Process {
         return number;
     }
 
-    //Evaluates multi level pointer returns result
-    pub fn pointer_from_offsets(self, offsets: Vec<u64>) -> u64 {
+    //Evaluates multi level pointer returns result for 32 bit pointers/programs
+    pub fn pointer_from_offsets32(self, offsets: Vec<u64>) -> u64 {
         let mut pointer: u64 = 0;
         for o in offsets.iter() {
             pointer += o;
             pointer = Process::read_memory::<u32>(self, pointer) as u64;
+        }
+        return pointer;
+    }
+
+    //Evaluates multi level pointer returns result for 64 bit pointers/programs
+    pub fn pointer_from_offsets64(self, offsets: Vec<u64>) -> u64 {
+        let mut pointer: u64 = 0;
+        for o in offsets.iter() {
+            pointer += o;
+            pointer = Process::read_memory::<u64>(self, pointer);
         }
         return pointer;
     }
