@@ -21,7 +21,12 @@ impl Process {
     //Writes to memory at specified address
     pub fn write_memory<T>(self, address: u64, value: T) {
         let mut input = value;
-        unsafe {
+        let mut oldprot: winapi::shared::minwindef::DWORD = 0;
+        unsafe{ 
+            //Changes the protection of the memory incase it couldnt be written to
+            winapi::um::memoryapi::VirtualProtectEx(self.m_h_process, address as *mut _, mem::size_of::<T>() as winapi::shared::basetsd::SIZE_T, winapi::um::winnt::PAGE_EXECUTE_READWRITE, &mut oldprot as *mut std::os::raw::c_uint);
+            
+            //Writes
             winapi::um::memoryapi::WriteProcessMemory(
                 self.m_h_process,
                 address as *mut _,
@@ -29,6 +34,9 @@ impl Process {
                 mem::size_of::<T>() as winapi::shared::basetsd::SIZE_T,
                 ptr::null_mut(),
             );
+            
+            //Changes protection back to the original
+            winapi::um::memoryapi::VirtualProtectEx(self.m_h_process, address as *mut _, mem::size_of::<T>() as winapi::shared::basetsd::SIZE_T, oldprot, &mut oldprot as *mut std::os::raw::c_uint);
         }
     }
 
